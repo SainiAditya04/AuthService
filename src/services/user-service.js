@@ -1,17 +1,41 @@
 const UserRepository = require("../repository/user.repository");
+const jwt = require("jsonwebtoken");
+const { JWT_KEY } = require("../config/serverConfig");
 
-class UserService{
-    constructor(){
+class UserService {
+    constructor() {
         this.userRepository = new UserRepository();
     }
 
-    async create(data){
-        try{
+    async create(data) {
+        try {
             const user = await this.userRepository.create(data);
             return user;
         }
-        catch(error){
+        catch (error) {
             console.log("something went wrong in user service");
+            throw error;
+        }
+    }
+
+    createToken(user) {
+        try {
+            const token = jwt.sign(user, JWT_KEY, { expiresIn: '1h' })
+            return token;
+        }
+        catch (error) {
+            console.log("something went wrong in token creation");
+            throw error;
+        }
+    }
+
+    verifyToken(token){
+        try{
+            const response = jwt.verify(token, JWT_KEY);
+            return response;
+        }
+        catch(error){
+            console.log("something went wrong while verifying token", error);
             throw error;
         }
     }

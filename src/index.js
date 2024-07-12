@@ -11,7 +11,7 @@ const startServer = () => {
     app.use(express.json());
     app.use("/api", apiRoutes);
 
-    app.listen(PORT, (req, res) => {
+    app.listen(PORT, async (req, res) => {
         console.log(`The server is started at PORT: ${PORT}`);
     });
 }
