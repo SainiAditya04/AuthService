@@ -41,7 +41,28 @@ const signIn = async (req, res) => {
     }
 }
 
+const isAuthenticated = async (req, res) => {
+    try {
+        // how to know if the incoming request is authenticated or not ?
+        // frontend save the JWT token and send the token in Header
+        const token = req.header('x-access-token');
+        const response = await userService.isAuthenticated(token);
+        return res.status(200).json({
+            message: "User is authenticated and token is valid",
+            success: true,
+            data: response
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Failed to authenticate",
+            success: false,
+            err: error
+        });
+    }
+}
+
 module.exports = {
     create,
     signIn,
+    isAuthenticated,
 }
