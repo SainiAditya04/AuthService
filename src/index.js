@@ -16,11 +16,11 @@ const startServer = async () => {
 
     // if(process.env.DB_SYNC){
     //     db.sequelize.sync({ alter: true });
-    // }
+    // } 
 
-    const u1 = await User.findByPk(4);
-    const r1 = await Role.findByPk(1);
-    u1.addRole(r1);
+    // const u1 = await User.findByPk(4);
+    // const r1 = await Role.findByPk(1);
+    // u1.addRole(r1);
 
     app.listen(PORT, async (req, res) => {
         console.log(`The server is started at PORT: ${PORT}`);

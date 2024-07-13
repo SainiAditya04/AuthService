@@ -5,16 +5,12 @@ const router = express.Router();
 const UserController = require("../../controller/user.controller");
 
 // import middlewares
-const { validateUserAuth } = require("../../middlewares/auth.middleware");
+const { validateUserAuth, validateIsAdmin } = require("../../middlewares/auth.middleware");
 
 // user routes
 router.post("/signup", validateUserAuth, UserController.create);
 router.post("/signin", validateUserAuth, UserController.signIn);
 router.get("/isAuthenticated", UserController.isAuthenticated);
-router.get("/dummy", (req, res) => {
-    return res.status(200).json({
-        message: "OK"
-    });
-})
+router.get("/isAdmin", validateIsAdmin, UserController.isAdmin);
 
 module.exports = router;
