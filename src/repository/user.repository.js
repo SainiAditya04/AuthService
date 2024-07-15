@@ -53,6 +53,10 @@ class UserRepository{
                     email: userEmail
                 }
             });
+
+            if(!user){
+                throw { err: "User doesn't exits"};
+            }
             return user;
         } catch (error) {
             console.log("something went wrong in user repository");
